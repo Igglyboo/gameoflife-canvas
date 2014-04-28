@@ -21,8 +21,8 @@ $(document).ready(function () {
     var grid2 = createArray(width, height);
     var paused = true;
     var refreshIntervalID;
-    var deadColor = '#000000';
-    var aliveColor = '#FFFFFF';
+    var deadColor = '#FFFFFF';
+    var aliveColor = "#FF0000";
     initGrid(true);
     drawCells();
 
@@ -56,19 +56,10 @@ $(document).ready(function () {
             for (var y = 1; y < height - 1; y += 1) {
                 var n = getNeighbors(x,y);
                 if(grid1[x][y]){
-                    if(n==2 || n==3){
-                        grid2[x][y] = true;
-                    }
-                    else{
-                        grid2[x][y] = false;
-                    }
+                        grid2[x][y] = (n==2 || n==3);
                 }
                 else {
-                    if(n==3){
-                        grid2[x][y] = true;
-                    }
-                    else grid2[x][y] = false;
-
+                        grid2[x][y] = (n==3);
                 }
             }
         }
@@ -80,10 +71,11 @@ $(document).ready(function () {
     function drawCells() {
         for (var x = 0; x < width; x += 1) {
             for (var y = 0; y < height; y += 1) {
-                grid1[x][y] ? context.fillStyle = deadColor : context.fillStyle = aliveColor;
+                grid1[x][y] ? context.fillStyle = aliveColor : context.fillStyle = deadColor;
                 context.fillRect(x * 10, y * 10, (x + 1) * 10, (y + 1) * 10);
             }
         }
+       // aliveColor = "#"+((1<<24)*Math.random()|0).toString(16);
     }
 
     function getNeighbors(x,y){
