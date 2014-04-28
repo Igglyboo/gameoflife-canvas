@@ -17,7 +17,6 @@ $(document).ready(function () {
     canvas.height = $("#game").height();
     var width = Math.floor(canvas.width / 10);
     var height = Math.floor(canvas.height / 10);
-    alert([canvas.width, canvas.height]);
     var grid1 = createArray(width, height);
     var grid2 = createArray(width, height);
     var paused = true;
@@ -29,24 +28,24 @@ $(document).ready(function () {
 
     function initGrid(random) {
         for (var x = 0; x < width; x+=1){
-            grid1[x][0] = grid2[x][0] = 0;
-            grid1[x][width] = grid2[x][width] = 0;
+            grid1[x][0] = grid2[x][0] = false;
+            grid1[x][width] = grid2[x][width] = false;
         }
         for (var y = 0; y < height; y+=1){
-            grid1[0][y] = grid2[0][y] = 0;
-            grid1[height][y] = grid2[height][y] = 0;
+            grid1[0][y] = grid2[0][y] = false;
+            grid1[height][y] = grid2[height][y] = false;
         }
         if(random) {
             for (var x = 1; x < width - 1; x += 1) {
                 for (var y = 1; y < height - 1; y += 1) {
-                    grid1[x][y] = grid2[x][y] = Math.floor(Math.random() * 2);
+                    grid1[x][y] = grid2[x][y] = !Math.floor(Math.random() * 2);
                 }
             }
         }
         else {
             for (var x = 1; x < width - 1; x += 1) {
                 for (var y = 1; y < height - 1; y += 1) {
-                    grid1[x][y] = grid2[x][y] = 0;
+                    grid1[x][y] = grid2[x][y] = false;
                 }
             }
         }
@@ -58,17 +57,17 @@ $(document).ready(function () {
                 var n = getNeighbors(x,y);
                 if(grid1[x][y]){
                     if(n==2 || n==3){
-                        grid2[x][y] = 1;
+                        grid2[x][y] = true;
                     }
                     else{
-                        grid2[x][y] = 0;
+                        grid2[x][y] = false;
                     }
                 }
                 else {
                     if(n==3){
-                        grid2[x][y] = 1;
+                        grid2[x][y] = true;
                     }
-                    else grid2[x][y] = 0;
+                    else grid2[x][y] = false;
 
                 }
             }
